@@ -72,9 +72,6 @@ function appendEndorsementsToList(item){
 
     newEl.append(newFromEl, newValueEl, newToEl)
 
-    listEl.appendChild(newEl)
-
-
     newEl.addEventListener('dblclick', function(){
         let exactItemLocation = ref(database, `endorsements/${itemId}`)
         remove(exactItemLocation)

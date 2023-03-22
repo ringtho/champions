@@ -19,6 +19,7 @@ html, body {
     margin-top: 50px;
     text-align: center;
     gap: 12px;
+    max-width: 600px;
 }
 
 img {
@@ -116,5 +117,44 @@ form {
     gap: 12px;
 }
 
+
+@media (min-width: 690px){
+    .container {
+        margin: 50px auto;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    h4, p, textarea, input {
+        font-size: 18px;
+    }
+
+    form {
+        gap: 16px;
+    }
+    textarea,
+    .to-from-input, button{
+        padding: 16px 20px;
+    }
+
+    textarea {
+        height: 140px;
+    }
+
+    img {
+        height: 120px;
+        width: 120px;
+    }
+
+    ul li {
+        padding: 16px 20px;
+    }
+}
 
 
