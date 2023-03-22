@@ -17,13 +17,14 @@ html, body {
     margin-right: 36px;
     margin-top: 50px;
     text-align: center;
-    align-items: center;
+    /* align-items: center; */
     gap: 12px;
 }
 
 img {
     height: 90px;
     width: 90px;
+    margin: 0 auto;;
 }
 
 h1 {
@@ -43,6 +44,7 @@ textarea {
     padding: 12px 16px;
     resize: none;
     height: 118px;
+    color: #FFFFFF;
 }
 
 button {
@@ -53,8 +55,14 @@ button {
     font-size: 22px;
     font-weight: 700;
     padding: 16px;
+    
 }
 
 textarea, button {
     width: 100%;
+    cursor: pointer;
+}
+
+ul {
+    text-align: start;
 }
