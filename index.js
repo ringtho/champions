@@ -23,7 +23,6 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
     const formData = new FormData(form)
 
-
     clearInputField()
 
     let data = {}
@@ -48,12 +47,13 @@ onValue(endorsementInDB, snapshot => {
 
 function clearInputField(){
     inputField.value = ""
+    toInputField.value = ""
+    fromInputField.value = ""
 }
 
 function clearEndorsementsList(){
     listEl.innerHTML = ""
-    toInputField.innerHTML = ""
-    fromInputField.innerHTML = ""
+    
 }
 
 function appendEndorsementsToList(item){
