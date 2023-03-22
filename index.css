@@ -60,6 +60,10 @@ button {
     
 }
 
+button:hover {
+    background-color: #0369A1;
+}
+
 textarea, button {
     width: 100%;
     cursor: pointer;
