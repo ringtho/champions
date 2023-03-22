@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js'
-import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js'
+import { getDatabase, ref, push, onValue, remove } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js'
 
 
 const appSettings = {
@@ -26,9 +26,10 @@ publishBtn.addEventListener('click', () => {
 })
 
 onValue(endorsementInDB, snapshot => {
+    const endorsementsArr = Object.entries(snapshot.val())
 
-    const endorsementsArr = Object.values(snapshot.val())
-
+    clearEndorsementsList()
+    
     for (let endorsement of endorsementsArr){
         appendEndorsementsToList(endorsement)
     }
@@ -39,9 +40,24 @@ function clearInputField(){
     inputField.value = ""
 }
 
+function clearEndorsementsList(){
+    listEl.innerHTML = ""
+}
+
 function appendEndorsementsToList(item){
+    let itemId = item[0]
+    let itemValue = item[1]
+
     let newEl = document.createElement("li")
-    newEl.textContent = item
+    newEl.textContent = itemValue
+
+    listEl.appendChild(newEl)
+
+
+    newEl.addEventListener('dblclick', function(){
+        let exactItemLocation = ref(database, `endorsements/${itemId}`)
+        remove(exactItemLocation)
+    })
 
     listEl.appendChild(newEl)
 }
