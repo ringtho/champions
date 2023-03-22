@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js'
-import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js'
+import { getDatabase, ref, push, onValue } from 'https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js'
 
 
 const appSettings = {
@@ -16,20 +16,33 @@ const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const endorsementInDB = ref(database, "endorsements")
 
-console.log(endorsementInDB)
-
-
 publishBtn.addEventListener('click', () => {
-    let newEl = document.createElement("li")
     let inputValue = inputField.value
-    newEl.textContent = inputValue
-    listEl.appendChild(newEl)
+    appendEndorsementsToList(inputValue)
+
     clearInputField()
 
     push(endorsementInDB, inputValue)
 })
 
+onValue(endorsementInDB, snapshot => {
+
+    const endorsementsArr = Object.values(snapshot.val())
+
+    for (let endorsement of endorsementsArr){
+        appendEndorsementsToList(endorsement)
+    }
+
+})
+
 function clearInputField(){
     inputField.value = ""
+}
+
+function appendEndorsementsToList(item){
+    let newEl = document.createElement("li")
+    newEl.textContent = item
+
+    listEl.appendChild(newEl)
 }
 
