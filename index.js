@@ -7,9 +7,8 @@ const appSettings = {
     databaseURL: "https://playground-550b2-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
-
+const form = document.getElementById("submit-form")
 const listEl = document.getElementById("list")
-const publishBtn = document.getElementById("btn")
 let inputField = document.getElementById("input-field")
 let toInputField = document.getElementById("to")
 let fromInputField = document.getElementById("from")
@@ -18,14 +17,22 @@ const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const endorsementInDB = ref(database, "endorsements")
 
-publishBtn.addEventListener('click', () => {
-    let inputValue = inputField.value
-    let fromValue = fromInputField.value
-    let toValue = toInputField.value
+
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const formData = new FormData(form)
+
 
     clearInputField()
 
-    push(endorsementInDB, {input: inputValue, from: fromValue, to: toValue})
+    let data = {}
+    for(let [key, value] of formData){
+        data[key] = value
+    } 
+
+    push(endorsementInDB, data)
+
 })
 
 onValue(endorsementInDB, snapshot => {
@@ -45,13 +52,13 @@ function clearInputField(){
 
 function clearEndorsementsList(){
     listEl.innerHTML = ""
+    toInputField.innerHTML = ""
+    fromInputField.innerHTML = ""
 }
 
 function appendEndorsementsToList(item){
     let itemId = item[0]
     let itemValue = item[1]
-
-    console.log(itemValue)
 
     let newEl = document.createElement("li")
 

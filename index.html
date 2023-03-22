@@ -13,12 +13,14 @@
         <div class="container">
             <img src="./assets/freddie.png" />
             <h1>We are the Champions</h1>
-            <textarea id="input-field"  placeholder="Write your endorsement here"></textarea>
-            <div class="input-container">
-                <input id="from" type="text" class="to-from-input" placeholder="From" />
-                <input id="to" type="text" class="to-from-input" placeholder="To"/>
-            </div>
-            <button id="btn">Publish</button>
+            <form id="submit-form">
+                <textarea name="input" id="input-field"  placeholder="Write your endorsement here" required></textarea>
+                <div class="input-container">
+                    <input name="from" id="from" type="text" class="to-from-input" placeholder="From" required />
+                    <input name="to" id="to" type="text" class="to-from-input" placeholder="To" required/>
+                </div>
+                <button id="btn">Publish</button>
+            </form>
             <h3>-Endorsements-</h3>
             <ul id="list"></ul>
             <script src="index.js" type="module"></script>
