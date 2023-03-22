@@ -11,6 +11,8 @@ const appSettings = {
 const listEl = document.getElementById("list")
 const publishBtn = document.getElementById("btn")
 let inputField = document.getElementById("input-field")
+let toInputField = document.getElementById("to")
+let fromInputField = document.getElementById("from")
 
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
@@ -18,18 +20,19 @@ const endorsementInDB = ref(database, "endorsements")
 
 publishBtn.addEventListener('click', () => {
     let inputValue = inputField.value
-    appendEndorsementsToList(inputValue)
+    let fromValue = fromInputField.value
+    let toValue = toInputField.value
 
     clearInputField()
 
-    push(endorsementInDB, inputValue)
+    push(endorsementInDB, {input: inputValue, from: fromValue, to: toValue})
 })
 
 onValue(endorsementInDB, snapshot => {
-    const endorsementsArr = Object.entries(snapshot.val())
+    const endorsementsArr = Object.entries(snapshot.val()).reverse()
 
     clearEndorsementsList()
-    
+
     for (let endorsement of endorsementsArr){
         appendEndorsementsToList(endorsement)
     }
@@ -48,8 +51,19 @@ function appendEndorsementsToList(item){
     let itemId = item[0]
     let itemValue = item[1]
 
+    console.log(itemValue)
+
     let newEl = document.createElement("li")
-    newEl.textContent = itemValue
+
+    let newFromEl = document.createElement('h4')
+    let newToEl = document.createElement('h4')
+    let newValueEl = document.createElement('p')
+
+    newFromEl.textContent = `From ${itemValue.from}`
+    newToEl.textContent = `To ${itemValue.to}`
+    newValueEl.textContent = itemValue.input
+
+    newEl.append(newFromEl, newValueEl, newToEl)
 
     listEl.appendChild(newEl)
 
